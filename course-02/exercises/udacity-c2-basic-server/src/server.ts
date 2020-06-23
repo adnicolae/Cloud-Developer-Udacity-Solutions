@@ -74,8 +74,7 @@ import { Car, cars as cars_list } from './cars';
     const { make } = req.query;
 
     if (!make) {
-      return res.status(400)
-                .send(`Make is required.`);
+      return res.status(200).send(cars);
     }
 
     const carsByMake = cars.filter(car => car.make === make);
