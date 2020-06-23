@@ -1,2 +1,3 @@
-# cloud-developer
-content for Udacity's cloud developer nanodegree
+# Cloud Developer Nanodegree
+
+My development solution based on Udacity's starter code.
