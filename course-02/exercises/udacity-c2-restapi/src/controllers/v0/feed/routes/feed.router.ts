@@ -16,15 +16,50 @@ router.get('/', async (req: Request, res: Response) => {
     res.send(items);
 });
 
-//@TODO
+//@TODO (DONE)
 //Add an endpoint to GET a specific resource by Primary Key
+router.get('/:id', async (req: Request, res: Response) => {
+    const id = req.params.id;
+    if (!id) {
+        return res.status(400).send({ message: 'No id provided.' });
+    }
+    const item = await FeedItem.findByPk(id);
+    
+    if (!item) {
+        return res.status(404).send({ message: 'No item with that id.'})
+    }
+    res.status(200).send(item);
+});
 
 // update a specific resource
 router.patch('/:id', 
     requireAuth, 
     async (req: Request, res: Response) => {
-        //@TODO try it yourself
-        res.send(500).send("not implemented")
+        const id = req.params.id;
+        const updates = Object.keys(req.body);
+        const allowedUpdates = ['caption', 'url'];
+        const isValidOperation = updates.every(update => allowedUpdates.includes(update));
+
+        if (!isValidOperation) {
+            return res.status(400).send({ message: 'Invalid updates.' });
+        }
+
+        if (!id) {
+            return res.status(400).send({ message: 'No id provided.' });
+        }
+        const item = await FeedItem.findByPk(id);
+        
+        if (!item) {
+            return res.status(404).send({ message: 'No item with that id.'})
+        }
+
+        item.update(req.body)
+            .then(updatedRecord => {
+                res.send(updatedRecord);
+            })
+            .catch(error => {
+                res.status(400).send();
+            });
 });
 
 
