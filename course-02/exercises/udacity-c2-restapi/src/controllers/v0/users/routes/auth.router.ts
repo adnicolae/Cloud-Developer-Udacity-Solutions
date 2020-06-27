@@ -7,18 +7,21 @@ import * as jwt from 'jsonwebtoken';
 import { NextFunction } from 'connect';
 
 import * as EmailValidator from 'email-validator';
+import { resolve } from 'bluebird';
 
 const router: Router = Router();
 
 async function generatePassword(plainTextPassword: string): Promise<string> {
     //@TODO Use Bcrypt to Generated Salted Hashed Passwords
+    return 'true';
 }
 
 async function comparePasswords(plainTextPassword: string, hash: string): Promise<boolean> {
     //@TODO Use Bcrypt to Compare your password to your Salted Hashed Password
+    return true;
 }
 
-function generateJWT(user: User): string {
+function generateJWT(user: User): void {
     //@TODO Use jwt to create a new JWT Payload containing
 }
 
